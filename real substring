@@ -1,0 +1,51 @@
+//写了半天bug终于
+//得看看string类的方法了...
+#include<iostream>
+#include<string>
+using namespace std;
+int lengthOfLongestSubstring(string s) {
+	int i = 0;
+	int length = s.length();
+	int *mm=new int[length+11];
+	for (int abc = 0; abc<length; abc++)
+		mm[abc] = 1;
+	int j ;
+	int m ;
+	for (i=0; i<length; i++)
+	{
+		for (j = i + 1;j<length; j++)
+		{
+			for (m = i; m < j-1; m++)
+			{
+				if (s[j] == s[m])
+					break;
+			}
+			if (s[j] == s[m])
+				break;
+			mm[i]++;
+			//cout << mm[i] << endl;
+		}
+	}
+	int max = 0;
+	for (int abc = 0; abc<length; abc++)
+	{
+		if (mm[abc]>mm[max])
+			max = abc;
+	}
+	string substring;
+	int c = 0;
+	for (int u = max; u<mm[max]+max; u++)
+	{
+		cout << s[u];
+		//substring[c++] = s[u];
+	}
+	
+	//cout << substring << endl;
+	cout << max<<endl;
+	return mm[max];
+}
+int main()
+{
+	string s = "typepeabcde";
+	cout << lengthOfLongestSubstring(s);
+}
